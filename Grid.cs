@@ -17,7 +17,8 @@ class Grid : ICloneable
         columnData = new HeaderData(cols);
     }
 
-    private Grid(Grid grid) {
+    private Grid(Grid grid)
+    {
         rowData = grid.RowData;
         columnData = grid.ColumnData;
         data = new int[grid.Rows, grid.Columns];
@@ -38,13 +39,17 @@ class Grid : ICloneable
 
     public HeaderData ColumnData => columnData;
 
-    public bool Adopt(Grid grid) {
+    public bool Adopt(Grid grid)
+    {
         var changed = false;
-        for (int r =0; r < grid.Rows; r++) {
-            for (int c = 0; c < grid.Columns; c++) {
-                if (grid[r, c] != 0 && this[r, c] != grid[r, c]) {
+        for (int r = 0; r < grid.Rows; r++)
+        {
+            for (int c = 0; c < grid.Columns; c++)
+            {
+                if (grid[r, c] != 0 && this[r, c] != grid[r, c])
+                {
                     this[r, c] = grid[r, c];
-                    changed =true;
+                    changed = true;
                 }
             }
         }
@@ -71,9 +76,11 @@ class Grid : ICloneable
 
     public object Clone() => new Grid(this);
 
-    public void Print() {
-        static int digitLength(int n) => (int) (Math.Log10(n) + 1);
-        static string output(int i) => i switch {
+    public void Print()
+    {
+        static int digitLength(int n) => (int)(Math.Log10(n) + 1);
+        static string output(int i) => i switch
+        {
             0 => "▒▒",
             -1 => "  ",
             _ => "██"
@@ -91,14 +98,16 @@ class Grid : ICloneable
         var oldForegroundColor = Console.ForegroundColor;
         Console.BackgroundColor = ConsoleColor.White;
         Console.ForegroundColor = ConsoleColor.Cyan;
-        foreach (var column in hintColumns) {
+        foreach (var column in hintColumns)
+        {
             Console.BackgroundColor = ConsoleColor.Black;
             Console.Write(column);
             Console.BackgroundColor = oldBackgroundColor;
             Console.WriteLine();
         }
         int rowNum = 0;
-        foreach (var row in hintRows) {
+        foreach (var row in hintRows)
+        {
             Console.BackgroundColor = ConsoleColor.Black;
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.Write(row);
