@@ -73,17 +73,17 @@ class SimpleFittingSolver : ISolver
             groupIndex += reverse ? -1 : 1;
         }
         // Mark spaces before and after a block. If they match up in first/last, they are empty for sure as well
-        for (int i = 0; i < array.Length - 1; i++)
-        {
-            if (array[i] == 0 && array[i + 1] > 0)
-            {
-                array[i] = -3;
-            }
-            if (array[i] > 0 && array[i + 1] == 0)
-            {
-                array[i + 1] = -4;
-            }
-        }
+        // for (int i = 0; i < array.Length - 1; i++)
+        // {
+        //     if (array[i] == 0 && array[i + 1] > 0)
+        //     {
+        //         array[i] = -3;
+        //     }
+        //     if (array[i] > 0 && array[i + 1] == 0)
+        //     {
+        //         array[i + 1] = -4;
+        //     }
+        // }
         for (int i = 0; i < array.Length && array[i] == 0; i++)
         {
             array[i] = -1; // Start to first block
