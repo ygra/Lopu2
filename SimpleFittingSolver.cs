@@ -84,14 +84,14 @@ class SimpleFittingSolver : ISolver
         //         array[i + 1] = -4;
         //     }
         // }
-        // for (int i = 0; array[i] == 0; i++)
-        // {
-        //     array[i] = -1; // Start to first block
-        // }
-        // for (int i = array.Length - 1; array[i] == 0; i--)
-        // {
-        //     array[i] = -2; // last block till end
-        // }
+        for (int i = 0; array[i] == 0; i++)
+        {
+            array[i] = -1; // Start to first block
+        }
+        for (int i = array.Length - 1; array[i] == 0; i--)
+        {
+            array[i] = -2; // last block till end
+        }
         return array;
     }
 }
