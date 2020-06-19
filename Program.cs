@@ -15,10 +15,7 @@ namespace Lopu2
 
         static async Task MainAsync(string[] args)
         {
-            var rows = File.ReadAllLines(@"D:\Users\Joey\Documents\Code\Pascal\LoPu\img\Buchstab\rinitial.row");
-            var cols = File.ReadAllLines(@"D:\Users\Joey\Documents\Code\Pascal\LoPu\img\Buchstab\rinitial.col");
-            var grid = Grid.Load(rows, cols);
-            grid.Print();
+            var grid = Load(args.FirstOrDefault() ?? "neuscwst");
             bool changed;
             do
             {
@@ -33,8 +30,18 @@ namespace Lopu2
                 {
                     changed |= grid.Adopt(g);
                 }
-                grid.Print();
             } while (changed);
+            grid.Print();
+        }
+
+        static Grid Load(string name)
+        {
+            // find image name
+            var rowFile = Directory.EnumerateFiles("img", $"{name}.row", new EnumerationOptions { RecurseSubdirectories = true }).FirstOrDefault();
+            var colFile = Directory.EnumerateFiles("img", $"{name}.col", new EnumerationOptions { RecurseSubdirectories = true }).FirstOrDefault();
+            var rows = File.ReadAllLines(rowFile);
+            var cols = File.ReadAllLines(colFile);
+            return Grid.Load(rows, cols);
         }
     }
 }
