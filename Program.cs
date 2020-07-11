@@ -15,7 +15,7 @@ namespace Lopu2
 
         static async Task MainAsync(string[] args)
         {
-            var grid = Load(args.FirstOrDefault() ?? "neuscwst");
+            var grid = Load(args.FirstOrDefault() ?? "rinitial");
             bool changed;
             do
             {
@@ -23,13 +23,15 @@ namespace Lopu2
                 var colSolvers = Enumerable.Range(0, grid.Columns).Select(c => new SimpleFittingSolver(c, false));
                 var allSolvers = rowSolvers.Concat<ISolver>(colSolvers).Concat(new[] { new FillEmptySolver() });
                 // var allSolvers = new[]{new SimpleFittingSolver(21, false)};
-                var tasks = allSolvers.Select(solver => Task.Run(() => solver.TrySolve(grid)));
-                var newGrids = await Task.WhenAll(tasks);
+                // var tasks = allSolvers.Select(solver => Task.Run(() => solver.TrySolve(grid)));
+                // var newGrids = await Task.WhenAll(tasks);
+                var newGrids = allSolvers.Select(s => s.TrySolve(grid));
                 changed = false;
                 foreach (var g in newGrids)
                 {
                     changed |= grid.Adopt(g);
                 }
+                grid.Print();
             } while (changed);
             grid.Print();
         }

@@ -35,6 +35,8 @@ class Grid : ICloneable
 
     public int Columns => data.GetLength(1);
 
+    public double Percentage => (double)data.Cast<int>().Count(n => n != 0) / Rows / Columns;
+
     public HeaderData RowData => rowData;
 
     public HeaderData ColumnData => columnData;
@@ -70,6 +72,10 @@ class Grid : ICloneable
             var row = cols[i];
             var numbers = row.Split().Select(int.Parse);
             grid.ColumnData[i] = numbers.ToList();
+        }
+        if (grid.RowData.SelectMany(r => r).Sum() != grid.ColumnData.SelectMany(c => c).Sum())
+        {
+            throw new Exception("Row/Column count mismatch.");
         }
         return grid;
     }
